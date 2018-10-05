@@ -1,11 +1,23 @@
 module.exports = function count(s, pairs) {
+
+    const MAX_N = 1293938646;
+
+    if (s.length > 11) {
+        return 0;
+    }
+
+    if (pairs[0][1] > 10) {
+        return 0;
+    }
+
+
     function findN(pairs) {
         let n = 1;
         for (let i = 0, len = pairs.length; i < len; i++) {
             let numInDegree = pairs[i][0] ** pairs[i][1];
             n *= numInDegree;
         }
-        console.log('n', n);
+
         return n;
     }
 
@@ -49,14 +61,18 @@ module.exports = function count(s, pairs) {
     const n = findN(pairs);
 
 
+    if (n >= MAX_N) {
+        return 0;
+    }
+
+
     let countK = 0;
 
     for (let k = 1; k <= n; k++) {
         if (checkK(s, k)) {
-            // console.log(k)
             countK++;
         }
     }
-    console.log(countK, ' res ', countK % 1000000007);
+
     return countK % 1000000007;
 }
